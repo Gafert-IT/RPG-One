@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace RPG_One
 {
@@ -38,30 +39,36 @@ namespace RPG_One
         }
         public void attack(Player player)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Der Angriff deines Gegners beginnt!\n");
             int attack = Extensions.Wuerfeln(1, 20, 5).Max();
 
             if (attack > player.Geschicklichkeit)
             {
+                Console.WriteLine("\tDer Angriff deines Gegners gelingt.\n");
+                Thread.Sleep(2000);
                 int damage = Extensions.Wuerfeln(3, 6, 1).Max();
-                Console.WriteLine($"Der Angriff erfolgt mit {damage} Angriffspunkten.");
-                Console.WriteLine($"Deine Rüstung beträgt {player.Armor}.");
+                Console.WriteLine($"\tDer Angriff erfolgt mit {damage} Angriffspunkten.");
+                Console.WriteLine($"\tDeine Rüstung beträgt {player.Armor}.\n");
+                Thread.Sleep(2000);
                 if (damage > player.Armor)
                 {
                     int lifeLoss = (damage - player.Armor);
                     player.Life -= lifeLoss;
-                    Console.WriteLine($"Du verlierst {lifeLoss} Lebenspunkte.\n" +
-                        $"Du hast noch {player.Life} Lebenspunkte.\n");
+                    Console.WriteLine($"\tDu verlierst {lifeLoss} Lebenspunkte.\n" +
+                        $"\tDu hast noch {player.Life} Lebenspunkte.\n");
                 }
                 else
                 {
-                    Console.WriteLine("Du erleidest keinen Schaden.");
+                    Console.WriteLine("\tDu erleidest keinen Schaden.\n");
                 }
             }
             else
             {
-                Console.WriteLine("Der Angriff misslingt. Du erleidest keinen Schaden.");
+                Console.WriteLine("\tDer Angriff deines Gegners misslingt. Du erleidest keinen Schaden.\n");
+                Thread.Sleep(2000);
             }
-
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

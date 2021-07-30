@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using System.Numerics;
+using System.Threading;
 
 namespace RPG_One
 {
@@ -17,6 +18,7 @@ namespace RPG_One
         public int Life { get; set; }
         public int Armor { get; set; }
         public int Gold { get; set; }
+        public bool Weggelaufen { get; set; } = false;
 
         public Player(string name, int strength, int geschicklichkeit, int intelligence, int charisma, int wisdom, int life, int armor)
         {
@@ -34,15 +36,17 @@ namespace RPG_One
         {
             Console.Write("\n\tWie soll dein Charakter heißen? ");
             string name = Console.ReadLine();
-            Console.WriteLine($"\tOK, dein Name ist: {name}");
+            Console.SetCursorPosition(0, 3);
+            Console.Write($"\tSehr gut. {name} ist ein toller Name!                                \n\n");
 
-            Console.Write("\nDu hast 4 Eigenschaften:\n" +
+            Console.Write($"\n{name} hat 5 Eigenschaften:\n" +
                             "\tStärke\n" +
                             "\tGeschicklichkeit\n" +
                             "\tIntelligenz\n" +
                             "\tCharisma\n" +
-                            "\tWeisheit.\n" +
-                            "Das Programm würfelt jetzt deine Werte aus...\n\n");
+                            "\tWeisheit.\n\n" +
+                            "Das Programm würfelt jetzt deine Werte aus\n" +
+                            "und zeigt dir die Zusammenfassung an...\n\n");
             Console.WriteLine("(Weiter mit Enter)");
             Console.ReadKey();
             Console.Clear();
@@ -53,7 +57,7 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {strength[i]} | ");
             }
-            Console.WriteLine($"Deine Stärke beträgt: {strength.Max()}");
+            //Console.WriteLine($"Deine Stärke beträgt: {strength.Max()}");
 
             Console.Write("Geschicklichkeit: ");
             int[] geschicklichkeit = Extensions.Wuerfeln(3, 6, 3);
@@ -61,7 +65,7 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {geschicklichkeit[i]} | ");
             }
-            Console.WriteLine($"Deine Geschicklichkeit beträgt: {geschicklichkeit.Max()}");
+            //Console.WriteLine($"Deine Geschicklichkeit beträgt: {geschicklichkeit.Max()}");
 
             Console.Write("Intelligenz: ");
             int[] intelligence = Extensions.Wuerfeln(3, 6, 3);
@@ -69,7 +73,7 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {intelligence[i]} | ");
             }
-            Console.WriteLine($"Deine Intelligenz beträgt: {intelligence.Max()}");
+            //Console.WriteLine($"Deine Intelligenz beträgt: {intelligence.Max()}");
 
             Console.Write("Charisma: ");
             int[] charisma = Extensions.Wuerfeln(3, 6, 3);
@@ -77,7 +81,7 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {charisma[i]} | ");
             }
-            Console.WriteLine($"Dein Charisma beträgt: {charisma.Max()}");
+            //Console.WriteLine($"Dein Charisma beträgt: {charisma.Max()}");
 
             Console.Write("Weisheit: ");
             int[] wisdom = Extensions.Wuerfeln(3, 6, 3);
@@ -85,7 +89,7 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {wisdom[i]} | ");
             }
-            Console.WriteLine($"Deine Weisheit beträgt: {wisdom.Max()}");
+            //Console.WriteLine($"Deine Weisheit beträgt: {wisdom.Max()}");
 
             Console.WriteLine();
 
@@ -95,7 +99,7 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {life[i]} | ");
             }
-            Console.WriteLine($"Deine Lebensenergie beträgt: {life.Max()}");
+            //Console.WriteLine($"Deine Lebensenergie beträgt: {life.Max()}");
 
             Console.Write("Rüstung: ");
             int[] armor = Extensions.Wuerfeln(2, 6, 3);
@@ -103,24 +107,24 @@ namespace RPG_One
             {
                 Console.Write($"{i + 1}.Wurf: {armor[i]} | ");
             }
-            Console.WriteLine($"Deine Rüstung beträgt: {armor.Max()}");
+            //Console.WriteLine($"Deine Rüstung beträgt: {armor.Max()}");
 
-            Console.WriteLine();
-            Console.WriteLine("(Weiter mit Enter)");
-            Console.ReadKey();
+            //Console.WriteLine();
+            //Console.WriteLine("(Weiter mit Enter)");
+            //Console.ReadKey();
             Console.Clear();
 
-            Player player = new Player(name, strength.Max(), geschicklichkeit.Max(), intelligence.Max(), charisma.Max(), wisdom.Max(), life.Max(), armor.Max());            
+            Player player = new Player(name, strength.Max(), geschicklichkeit.Max(), intelligence.Max(), charisma.Max(), wisdom.Max(), life.Max(), armor.Max());
 
-            Console.WriteLine("Du hast erfolgreich deinen Charakter erstellt\n" +
-                    $"Name: {player.Name}\n" +
-                    $"Stärke: {player.Strength}\n" +
-                    $"Geschicklichkeit: {player.Geschicklichkeit}\n" +
-                    $"Intelligenz: {player.Intelligence}\n" +
-                    $"Charisma: {player.Charisma}\n" +
-                    $"Weisheit: {player.Wisdom}\n" +
-                    $"Leben: {player.Life}\n" +
-                    $"Rüstung: {player.Armor}\n" +
+            Console.WriteLine("Du hast erfolgreich deinen Charakter erstellt\n\n\n" +
+                    $"\tName: {player.Name}\n" +
+                    $"\tStärke: {player.Strength}\n" +
+                    $"\tGeschicklichkeit: {player.Geschicklichkeit}\n" +
+                    $"\tIntelligenz: {player.Intelligence}\n" +
+                    $"\tCharisma: {player.Charisma}\n" +
+                    $"\tWeisheit: {player.Wisdom}\n" +
+                    $"\tLeben: {player.Life}\n" +
+                    $"\tRüstung: {player.Armor}\n\n\n" +
                    "(Weiter mit Enter)");
             Console.ReadKey();
             Console.Clear();
@@ -130,30 +134,51 @@ namespace RPG_One
 
         public void attack(Attacker enemy)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nDein Angriff beginnt!\n");
             int attack = Extensions.Wuerfeln(1, 20, 5).Max();
 
             if (attack > this.Geschicklichkeit)
             {
+                Console.WriteLine("\tDer Angriff gelingt.\n");
+                Thread.Sleep(2000);
                 int damage = Extensions.Wuerfeln(3, 6, 1).Max();
-                Console.WriteLine($"Der Angriff erfolgt mit {damage} Angriffspunkten.");
-                Console.WriteLine($"Die Rüstung deines Gegners beträgt {enemy.Armor}.");
+                Console.WriteLine($"\tDer Angriff erfolgt mit {damage} Angriffspunkten.");
+                Console.WriteLine($"\tDie Rüstung deines Gegners beträgt {enemy.Armor}.\n");
+                Thread.Sleep(2000);
                 if (damage > enemy.Armor)
                 {
                     int lifeLoss = (damage - enemy.Armor);
                     enemy.Hitpoints -= lifeLoss;
-                    Console.WriteLine($"Dein Gegner verliert {lifeLoss} Lebenspunkte.\n" +
-                        $"Er hat noch {enemy.Hitpoints} Lebenspunkte.\n");
+                    if (enemy.Hitpoints < 0) { enemy.Hitpoints = 0; }
+                    Console.WriteLine($"\tDein Gegner verliert {lifeLoss} Lebenspunkte.\n" +
+                        $"\tEr hat noch {enemy.Hitpoints} Lebenspunkte.\n");
                 }
                 else
                 {
-                    Console.WriteLine("Dein Gegner erleidet keinen Schaden.");
+                    Console.WriteLine("\tDein Gegner erleidet keinen Schaden.\n");
                 }
             }
             else
             {
-                Console.WriteLine("Der Angriff misslingt. Dein Gegner erleidet keinen Schaden.");
+                Console.WriteLine("\tDer Angriff misslingt. Dein Gegner erleidet keinen Schaden.\n");
+                Thread.Sleep(2000);
             }
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
+        public void die()
+        {
+            this.Life = 0;
+            Console.Clear();
+            Console.WriteLine("\n\tDu bist tot!");
+        }
+        public void falscheAuswahl()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\tDas war die falsche Auswahl!");
+            Thread.Sleep(3000);
+            die();
         }
     }
 }

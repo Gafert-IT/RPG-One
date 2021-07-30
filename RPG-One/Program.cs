@@ -19,16 +19,22 @@ namespace RPG_One
 
                 while (player.Gold < 100 && player.Life > 0)
                 {
+
                     Extensions.GoToNewRoom(player);
-                    Extensions.GettingAttacked(player);
+
                     if (player.Life > 0)
                     {
+                        Extensions.CheckAttackersInRoom(player);
+                    }
+                    if (player.Life > 0 && !player.Weggelaufen)
+                    {
                         Extensions.GetTreasures(player);
-                    }                    
+                    }
                 }
-                
-                Console.WriteLine("Ende!");
+
+                Console.WriteLine("\n\tDas ist das Ende!");
                 Console.ReadKey();
+
             } while (true);
         }
     }
