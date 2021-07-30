@@ -128,7 +128,6 @@ namespace RPG_One
 
             return player;
         }
-
         public void attack(Attacker enemy)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -163,7 +162,6 @@ namespace RPG_One
             }
             Console.ForegroundColor = ConsoleColor.White;
         }
-
         public void die()
         {
             this.Life = 0;

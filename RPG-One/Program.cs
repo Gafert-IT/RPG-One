@@ -29,7 +29,6 @@ namespace RPG_One
 
                 while (player.Gold < 100 && player.Life > 0)
                 {
-
                     Extensions.GoToNewRoom(player);
 
                     if (player.Life > 0)
@@ -43,7 +42,7 @@ namespace RPG_One
                 }
 
                 Console.WriteLine("\n\tDas ist das Ende!");
-                Console.ReadKey();
+                Console.ReadKey();                               
 
             } while (true);
         }

@@ -268,6 +268,5 @@ namespace RPG_One
                 }
             }
         }
-
     }
 }
