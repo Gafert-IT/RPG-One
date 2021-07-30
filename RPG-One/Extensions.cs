@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using System.Numerics;
 using System.IO;
 using System.Threading;
-
-/***************************************************************************************
-*    Title: RPG-One
-*    Author: Mike Gafert
-*    Date: 30.07.2021
-*    Time: 10:34
-*    Code version: 0.1.2
-*    Availability: https://github.com/Gafert-IT/RPG-One
-*    License: GNU General Public License v3.0
-*
-***************************************************************************************/
 
 namespace RPG_One
 {
